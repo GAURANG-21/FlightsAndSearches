@@ -32,7 +32,7 @@ const create = async(req, res) =>{
  */
 const destroy = async (req, res) =>{
     try{
-        const response = await cityService.destroyCity(req.params.id);
+        const response = await cityService.deleteCity(req.params.id);
         return res.status(200).json({
             data: response, 
             success: true,
@@ -81,7 +81,7 @@ const update = async (req, res) =>{
  */
 const get = async (req, res) =>{
     try {
-        const response = await CityService.getCity(req.params.id);
+        const response = await cityService.getCity(req.params.id);
         return res.status(200).json({
             data: response,
             success: true,

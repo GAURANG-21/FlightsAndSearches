@@ -5,6 +5,7 @@ const db = require('./models/index.js')
 const {Airport,City} = require('./models/index.js')
 // const {Op} = require('sequelize')
 // const CityRepository = require('./repository/city-repository.js')
+// const {Airplane} = require('./models/index')
 
 const ApiRoutes = require('./routes/index')
 
@@ -46,6 +47,10 @@ const setupAndStartServer = async() =>{
         // })
         // const airports = await city.getAirports()
         // console.log(city,"\n\n\n",airports)
+
+        // await Airplane.create({
+        //     modelNumber: "Bombardier CRJ"
+        // })
     });}
 
 setupAndStartServer();

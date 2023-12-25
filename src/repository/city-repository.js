@@ -3,6 +3,22 @@ const {City} = require('../models/index.js')
 
 class CityRepository{
     
+    async createMultipleCities(data){
+        try{
+          
+            const listOfObjects = data.name.map((name) => ({
+                "name": name
+              }));
+              console.log(listOfObjects);
+            const city = City.bulkCreate(listOfObjects,{ignoreDuplicates: true})
+            return city;
+        }
+        catch(error){
+            console.log("Something went wront in the repository layer",error);
+            throw {error}
+        }
+    }
+
     async createCity({name})  {
         try {
             const city = await City.create({name});

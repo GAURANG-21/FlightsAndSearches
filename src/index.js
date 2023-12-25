@@ -38,14 +38,14 @@ const setupAndStartServer = async() =>{
         //     }
         // });
         // console.log(airports)
-        if(process.env.SYNC_DB) db.sequelize.sync({alter:true})
-        const city = await City.findOne({
-            where:{
-                id:8
-            }
-        })
-        const airports = await city.getAirports()
-        console.log(city,"\n\n\n",airports)
+        // if(process.env.SYNC_DB) db.sequelize.sync({alter:true})
+        // const city = await City.findOne({
+        //     where:{
+        //         id:8
+        //     }
+        // })
+        // const airports = await city.getAirports()
+        // console.log(city,"\n\n\n",airports)
     });}
 
 setupAndStartServer();

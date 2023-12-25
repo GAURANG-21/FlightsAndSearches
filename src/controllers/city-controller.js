@@ -26,6 +26,25 @@ const create = async(req, res) =>{
     }
 }
 
+
+const createMultipleCities = async (req,res) => {
+   try {
+        const city = await cityService.createMultipleCities(req.body)
+        return res.status(200).json({
+            data: city,
+            success: true,
+            message: "Successfully created cities",
+            err: {}
+        })
+   } catch (error) {
+        res.status(500).json({
+            data: {}, 
+            success: false,
+            message: "Multiple cities are not created",
+            err: error
+        })
+   }
+}
 /**
  * DELETE
  * URL- /city/:id
@@ -124,5 +143,6 @@ module.exports = {
     destroy, 
     get, 
     update,
-    getAll
+    getAll,
+    createMultipleCities
 }

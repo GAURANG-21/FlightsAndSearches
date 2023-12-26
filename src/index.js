@@ -1,8 +1,8 @@
 const express =  require("express")
 const {PORT} = require('./config/serverConfig.js')
 const bodyParser = require('body-parser')
-const db = require('./models/index.js')
-const {Airport,City} = require('./models/index.js')
+// const db = require('./models/index.js')
+// const {Airport,City} = require('./models/index.js')
 // const {Op} = require('sequelize')
 // const CityRepository = require('./repository/city-repository.js')
 // const {Airplane} = require('./models/index')
@@ -51,6 +51,10 @@ const setupAndStartServer = async() =>{
         // await Airplane.create({
         //     modelNumber: "Bombardier CRJ"
         // })
+
+        // const repo = new CityRepository();
+        // await repo.getAllAirports(8);
+        
     });}
 
 setupAndStartServer();

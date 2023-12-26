@@ -27,7 +27,7 @@ const create = async(req, res) =>{
 
 /**
  * DELETE
- * URL- /city/:id
+ * URL- /airport/:id
  */
 const destroy = async (req, res) =>{
     try{
@@ -51,7 +51,7 @@ const destroy = async (req, res) =>{
 
 /**
  * PATCH
- * /city/:id // the id which we want to replace
+ * /airport/:id // the id which we want to replace
  * req.body // with which we want to update
  */
 const update = async (req, res) =>{
@@ -76,7 +76,7 @@ const update = async (req, res) =>{
 
 /**
  * GET
- * /city/:id
+ * /airport/:id
  */
 const get = async (req, res) =>{
     try {

@@ -6,6 +6,7 @@ router.post('/city', CityController.create)
 router.post('/cityall', CityController.createMultipleCities)
 router.delete('/city/:id',CityController.destroy)
 router.get('/city/:id',CityController.get)
+router.get('/cityairports/:id',CityController.getAllAirports)
 router.get('/city',CityController.getAll)
 router.patch('/city/:id',CityController.update)
 

@@ -1,5 +1,5 @@
 const {Op} = require('sequelize')
-const {City} = require('../models/index.js')
+const {City, Airport} = require('../models/index.js')
 
 class CityRepository{
     
@@ -90,6 +90,27 @@ class CityRepository{
         } catch (error) {
          console.log("Something went wrong in the repository layer")
          throw {error}   
+        }
+    }
+
+    async getAllAirports(cityId){
+        try {
+            const city = await City.findOne({
+                where: {
+                    id: cityId
+                    },
+                    include: Airport
+            });
+            const airports = await city.Airports
+            // console.log(airports)
+            const result = airports.map((airport) => ({
+                "name":airport.dataValues
+              }));
+            // console.log(result)
+            return result;
+        } catch (error) {
+            console.log("Something went wrong in the repository layer");
+            throw {error}
         }
     }
 }

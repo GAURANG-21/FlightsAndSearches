@@ -138,11 +138,31 @@ const getAll = async (req, res)=>{
     }
 }
 
+ const getAllAirports = async (req,res)=>{
+    try {
+        const airport = await cityService.getAllAirports(req.params.id)
+        return res.status(200).json({
+            data: airport,
+            success: true,
+            message: "Able to fetch all airports of the corresponding city",
+            err: {}
+        })
+    } catch (error) {
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: "Not able to fetch all airports of the corresponding city",
+            err: error
+        })
+    }
+}
+
 module.exports = {
     create, 
     destroy, 
     get, 
     update,
     getAll,
-    createMultipleCities
+    createMultipleCities,
+    getAllAirports
 }

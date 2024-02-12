@@ -22,5 +22,7 @@ router.post('/airports',AirportController1.create)
 
 router.post('/flights',FlightMiddlewares.validateCreateFlight,FlightController.create)
 router.get('/flights',FlightController.getAll)
+router.get('/flights/:id', FlightController.getFlight)
+router.patch('/flights/:id', FlightController.update)
 
 module.exports = router;

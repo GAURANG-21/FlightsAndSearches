@@ -1,5 +1,7 @@
+const { StatusCodes } = require('http-status-codes');
 const {FlightRepository,AirplaneRepository} = require('../repository/index')
-const {compareTime} = require('../utils/helper')
+const {compareTime} = require('../utils/helper');
+const ServiceError = require('../utils/service-error');
 
 class FlightService{
 
@@ -16,8 +18,15 @@ class FlightService{
             const flight = await this.flightRepository.createFlight({...data, totalSeats:airplane.capacity})
             return flight;
         } catch (error) {
-            console.log("Something went wrong at service layer")
-            throw {error}
+            console.log("Something went wrong in the service layer", error);
+            if(error.name == 'RepositoryError'){
+                throw error
+            }
+            throw new ServiceError(
+                "Unable to create a flight",
+                "Something went wrong while getting flight",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
     }
 
@@ -36,8 +45,15 @@ class FlightService{
             const flight = await this.flightRepository.getFlight(flightId);
             return flight;
         } catch (error) {
-            console.log("Something went wrong in the service layer");
-            throw {error}
+            console.log("Something went wrong in the service layer", error);
+            if(error.name == 'RepositoryError'){
+                throw error
+            }
+            throw new ServiceError(
+                "Unable to create a flight",
+                "Something went wrong while getting flight",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            )
         }
     }
 
@@ -46,9 +62,16 @@ class FlightService{
           const response = await this.flightRepository.updateFlights(flightId, data);
           return response;
       } catch (error) {
-          console.log("Something went wrong in the service layer");
-          throw {error}
-      }
+        console.log("Something went wrong in the service layer", error);
+        if(error.name == 'RepositoryError'){
+            throw error
+        }
+        throw new ServiceError(
+            "Unable to create a flight",
+            "Something went wrong while getting flight",
+            StatusCodes.INTERNAL_SERVER_ERROR
+        )
+    }
     }
 }
 

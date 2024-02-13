@@ -1,5 +1,7 @@
 const {Flights} = require('../models/index')
-const {Op} = require('sequelize')
+const {Op} = require('sequelize');
+const AppError = require('../utils/app-error');
+const { StatusCodes } = require('http-status-codes');
 
 class FlightRepository{
 
@@ -33,17 +35,35 @@ class FlightRepository{
             const flight = await Flights.create(data);
             return flight
         } catch (error) {
-            console.log("Something went wrong in the repository layer");
-            throw {error}
+            console.log("Something went wrong in the repository layer")
+            throw new AppError(
+                'RepositoryError',
+                'Unable to create a flight',
+                'There some error while creating the flight',
+                StatusCodes.BAD_REQUEST
+            )
         }
     }
     async getFlight(flightId){
         try {
             const flight = await Flights.findByPk(flightId);
+            if(!flight){
+                throw new AppError(
+                    'RepositoryError',
+                    'Unable to find such flight',
+                    'The flight does not exist in the database',
+                    StatusCodes.BAD_REQUEST
+                )
+            }
             return flight;
         } catch (error) {
             console.log("Something went wrong in the repository layer")
-            throw {error}
+            throw new AppError(
+                'RepositoryError',
+                'Unable to find such flight',
+                'There some error while fetching the flight',
+                StatusCodes.BAD_REQUEST
+            )
         }
     }
 
@@ -53,10 +73,23 @@ class FlightRepository{
             const flight = await Flights.findAll({
                 where: filterObject
             });
+            if(!flight){
+                throw new AppError(
+                    'RepositoryError',
+                    'Unable to get flights',
+                    'There are no flights in the database',
+                    StatusCodes.BAD_REQUEST
+                )
+            }
             return flight;
         } catch (error) {
             console.log("Something went wrong in the repository layer")
-            throw {error}
+            throw new AppError(
+                'RepositoryError',
+                'Unable to get all flights',
+                'There some error while updating the flight',
+                StatusCodes.BAD_REQUEST
+            )
         }
     }
 
@@ -69,8 +102,13 @@ class FlightRepository{
             });
             return true;
         } catch (error) {
-            console.log("Something went wrong in the repository layer");
-            throw {error}
+            console.log("Something went wrong in the repository layer")
+            throw new AppError(
+                'RepositoryError',
+                'Unable to update the flight',
+                'There some error while updating the flight',
+                StatusCodes.BAD_REQUEST
+            )
         }
     }
 }
